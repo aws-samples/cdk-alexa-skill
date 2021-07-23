@@ -1,0 +1,20 @@
+{
+	"manifest": {
+		"publishingInformation": {
+			"locales": {
+				"en-US": {
+					"name": "Dummy Skill",
+					"summary": "Strictly for testing purposes.",
+					"description": "Sample Full Description - this really should be longer than this.",
+					"examplePhrases": [ "Alexa open dummy skill" ],
+					"keywords": []
+				}
+			},
+			"isAvailableWorldwide": true,
+			"testingInstructions": "Sample Testing Instructions.",
+			"category": "KNOWLEDGE_AND_TRIVIA",
+			"distributionCountries": []
+		},
+		"manifestVersion": "1.0"
+	}
+}
