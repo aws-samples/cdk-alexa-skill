@@ -27,6 +27,8 @@ jobs:
         run: yarn install --check-files --frozen-lockfile
       - name: Bump to next version
         run: npx projen bump
+        env:
+          MAJOR: "1"
       - name: build
         run: npx projen build
       - name: Backup version file
