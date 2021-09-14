@@ -60,7 +60,7 @@ skill = Skill(self, 'Skill',
     lwa_refresh_token=core.SecretValue.secrets_manager('lwa-refresh-token')) # @aws-cdk/core.SecretValue object containing refresh token of LWA Security Profile
 ```
 
-See [example folder](./example) or [this blog post]() for a more complete example.
+See [example folder](./example) or [this blog post](https://aws.amazon.com/blogs/devops/deploying-alexa-skills-with-aws-cdk/) for a more complete example.
 ## Contributing
 
 Contributions of all kinds are welcome and celebrated. Raise an issue, submit a PR, do the right thing.

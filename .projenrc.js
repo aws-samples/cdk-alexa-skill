@@ -9,13 +9,14 @@ const project = new AwsCdkConstructLibrary({
   name: 'cdk-alexa-skill',
   description: 'A construct library for deploying Alexa Skills with the AWS CDK.',
   authorName: 'Jeff Gardner',
+  majorVersion: 1,
   cdkVersion: '1.110.1',
   cdkDependenciesAsDeps: false,
   defaultReleaseBranch: 'main',
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   repositoryUrl: 'https://github.com/aws-samples/cdk-alexa-skill',
   licensed: false,
-  gitignore: ['.DS_Store'],
+  gitignore: ['.DS_Store', '!/LICENSE'],
   npmignore: ['/example'],
   keywords: [
     'alexa',
@@ -47,6 +48,5 @@ project.addFields({
   license: 'MIT-0',
 });
 
-project.addGitIgnore('!/LICENSE');
 
 project.synth();
