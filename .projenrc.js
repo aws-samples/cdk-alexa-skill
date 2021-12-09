@@ -19,6 +19,7 @@ const project = new AwsCdkConstructLibrary({
   gitignore: ['.DS_Store', '!/LICENSE'],
   npmignore: ['/example'],
   keywords: [
+    'aws-cdk',
     'alexa',
     'skill',
     'echo',
