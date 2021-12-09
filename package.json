@@ -74,6 +74,7 @@
   "keywords": [
     "alexa",
     "amazon",
+    "aws-cdk",
     "cdk",
     "echo",
     "skill"
