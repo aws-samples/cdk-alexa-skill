@@ -20,6 +20,10 @@ Install with pip
 $ pip install cdk-alexa-skill
 ```
     
+## CDK compatibility
+- Version 2.x is compatible with the CDK v2.
+- Version 1.x is compatible with the CDK v1. There won't be regular updates for this.
+
 ## Usage/Examples
 
 #### TypeScript:

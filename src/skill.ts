@@ -4,12 +4,13 @@
  */
 
 import * as path from 'path';
-import * as ask from '@aws-cdk/alexa-ask';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as assets from '@aws-cdk/aws-s3-assets';
-import * as cdk from '@aws-cdk/core';
-import * as customResources from '@aws-cdk/custom-resources';
+import * as cdk from 'aws-cdk-lib';
+import * as ask from 'aws-cdk-lib/alexa-ask';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as assets from 'aws-cdk-lib/aws-s3-assets';
+import * as customResources from 'aws-cdk-lib/custom-resources';
+import { Construct } from 'constructs';
 
 const ALEXA_SERVICE_PRINCIPAL = 'alexa-appkit.amazon.com';
 const BACKEND_LAMBDA_PERMISSION_ACTION = 'lambda:InvokeFunction';
@@ -77,7 +78,7 @@ export class Skill extends SkillBase {
    * Reference an existing Skill,
    * defined outside of the CDK code, by Skill ID.
    */
-  public static fromSkillId(scope: cdk.Construct, id: string, skillId: string): ISkill {
+  public static fromSkillId(scope: Construct, id: string, skillId: string): ISkill {
     class Import extends SkillBase {
       public readonly skillId = skillId;
     }
@@ -89,7 +90,7 @@ export class Skill extends SkillBase {
      */
   public readonly skillId: string;
 
-  constructor(scope: cdk.Construct, id: string, props: SkillProps) {
+  constructor(scope: Construct, id: string, props: SkillProps) {
     // Validate that SSM SecureString was not supplied--Alexa::ASK::Skill does not support SSM SecureString references.
     const resolvedClientSecret = cdk.Tokenization.resolve(props.lwaClientSecret, {
       scope,

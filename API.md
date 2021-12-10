@@ -18,7 +18,7 @@ new Skill(scope: Construct, id: string, props: SkillProps)
 
 ##### `scope`<sup>Required</sup> <a name="cdk-alexa-skill.Skill.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
@@ -47,7 +47,7 @@ Skill.fromSkillId(scope: Construct, id: string, skillId: string)
 
 ###### `scope`<sup>Required</sup> <a name="cdk-alexa-skill.Skill.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
@@ -106,7 +106,7 @@ Client ID of Login with Amazon (LWA) Security Profile.
 
 ##### `lwaClientSecret`<sup>Required</sup> <a name="cdk-alexa-skill.SkillProps.lwaClientSecret"></a>
 
-- *Type:* [`@aws-cdk/core.SecretValue`](#@aws-cdk/core.SecretValue)
+- *Type:* [`aws-cdk-lib.SecretValue`](#aws-cdk-lib.SecretValue)
 
 Client secret associated with Login with Amazon (LWA) Client ID.
 
@@ -114,7 +114,7 @@ Client secret associated with Login with Amazon (LWA) Client ID.
 
 ##### `lwaRefreshToken`<sup>Required</sup> <a name="cdk-alexa-skill.SkillProps.lwaRefreshToken"></a>
 
-- *Type:* [`@aws-cdk/core.SecretValue`](#@aws-cdk/core.SecretValue)
+- *Type:* [`aws-cdk-lib.SecretValue`](#aws-cdk-lib.SecretValue)
 
 Refresh token associated with Login with Amazon (LWA) Security Profile.
 
@@ -130,7 +130,7 @@ The relative path to the skill package directory containing all configuration fi
 
 ##### `endpointLambdaFunction`<sup>Optional</sup> <a name="cdk-alexa-skill.SkillProps.endpointLambdaFunction"></a>
 
-- *Type:* [`@aws-cdk/aws-lambda.IFunction`](#@aws-cdk/aws-lambda.IFunction)
+- *Type:* [`aws-cdk-lib.aws_lambda.IFunction`](#aws-cdk-lib.aws_lambda.IFunction)
 - *Default:* No endpoint Lambda Function
 
 The Lambda Function to be configured as the endpoint for the Alexa Skill.
@@ -142,7 +142,7 @@ The Lambda Function to be configured as the endpoint for the Alexa Skill.
 
 ### ISkill <a name="cdk-alexa-skill.ISkill"></a>
 
-- *Extends:* [`@aws-cdk/core.IResource`](#@aws-cdk/core.IResource)
+- *Extends:* [`aws-cdk-lib.IResource`](#aws-cdk-lib.IResource)
 
 - *Implemented By:* [`cdk-alexa-skill.Skill`](#cdk-alexa-skill.Skill), [`cdk-alexa-skill.ISkill`](#cdk-alexa-skill.ISkill)
 
@@ -153,15 +153,15 @@ An Alexa Skill, either managed by this CDK app, or imported.
 
 ##### `node`<sup>Required</sup> <a name="cdk-alexa-skill.ISkill.node"></a>
 
-- *Type:* [`@aws-cdk/core.ConstructNode`](#@aws-cdk/core.ConstructNode)
+- *Type:* [`constructs.Node`](#constructs.Node)
 
-The construct tree node for this construct.
+The tree node.
 
 ---
 
 ##### `env`<sup>Required</sup> <a name="cdk-alexa-skill.ISkill.env"></a>
 
-- *Type:* [`@aws-cdk/core.ResourceEnvironment`](#@aws-cdk/core.ResourceEnvironment)
+- *Type:* [`aws-cdk-lib.ResourceEnvironment`](#aws-cdk-lib.ResourceEnvironment)
 
 The environment this resource belongs to.
 
@@ -176,7 +176,7 @@ that might be different than the stack they were imported into.
 
 ##### `stack`<sup>Required</sup> <a name="cdk-alexa-skill.ISkill.stack"></a>
 
-- *Type:* [`@aws-cdk/core.Stack`](#@aws-cdk/core.Stack)
+- *Type:* [`aws-cdk-lib.Stack`](#aws-cdk-lib.Stack)
 
 The stack in which this resource is defined.
 
