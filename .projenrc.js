@@ -11,6 +11,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorName: 'Jeff Gardner',
   majorVersion: 2,
   cdkVersion: '2.1.0',
+  minNodeVersion: '14.17.0',
   defaultReleaseBranch: 'main',
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   repositoryUrl: 'https://github.com/aws-samples/cdk-alexa-skill',
