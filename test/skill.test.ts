@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: MIT-0
  */
 
-import { expect as expectCdk, not, haveResource, haveResourceLike, countResources, stringLike, ABSENT } from '@aws-cdk/assert';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cdk from '@aws-cdk/core';
+// import { expect as expectCdk, not, haveResource, haveResourceLike, countResources, stringLike, ABSENT } from '@aws-cdk/assert';
+import { Template, Match, Capture } from 'aws-cdk-lib/assertions';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cdk from 'aws-cdk-lib/core';
 import * as as from '../src';
 
 const DummySkillPackagePath = 'test/dummy-skill-package/';
@@ -46,6 +47,7 @@ function createTestSkillProps(scope: cdk.Stack, hasLambdaEndpoint: boolean, cust
 
 describe('Alexa Skill', () => {
   let stack: cdk.Stack;
+  let template: Template;
 
   beforeEach(() => {
     stack = new cdk.Stack();
@@ -54,10 +56,13 @@ describe('Alexa Skill', () => {
   describe('created with Lambda endpoint', () => {
     beforeEach(() => {
       new as.Skill(stack, 'Skill', createTestSkillProps(stack, true, {}));
+      template = Template.fromStack(stack);
     });
 
     test('creates a Skill with Overrides property', () => {
-      expectCdk(stack).to(haveResourceLike('Alexa::ASK::Skill', {
+      const functionConstructIdCapture = new Capture();
+
+      template.hasResourceProperties('Alexa::ASK::Skill', Match.objectLike({
         'VendorId': DummyAlexaDeveloperVendorId,
         'AuthenticationConfiguration': {
           'ClientId': DummyAlexaDeveloperClientId,
@@ -71,7 +76,7 @@ describe('Alexa Skill', () => {
                 'custom': {
                   'endpoint': {
                     'uri': {
-                      'Fn::GetAtt': [stringLike(`${DummyFunctionConstructId.replace('-', '')}*`), 'Arn'],
+                      'Fn::GetAtt': [functionConstructIdCapture, 'Arn'],
                     },
                   },
                 },
@@ -80,31 +85,38 @@ describe('Alexa Skill', () => {
           },
         },
       }));
+
+      expect(functionConstructIdCapture.asString()).toEqual(expect.stringMatching(RegExp(`${DummyFunctionConstructId.replace('-', '')}*`)));
     });
 
     test('creates Custom Resources', () => {
-      expectCdk(stack).to(haveResource('AWS::CloudFormation::CustomResource'));
-      expectCdk(stack).to(countResources('Custom::AWS', 2));
+      template.resourceCountIs('AWS::CloudFormation::CustomResource', 1);
+      template.resourceCountIs('Custom::AWS', 2);
     });
 
     test('creates a proper Lambda Permission', () => {
-      expectCdk(stack).to(haveResourceLike('AWS::Lambda::Permission', {
+      const functionConstructIdCapture = new Capture();
+
+      template.hasResourceProperties('AWS::Lambda::Permission', {
         FunctionName: {
-          'Fn::GetAtt': [stringLike(`${DummyFunctionConstructId.replace('-', '')}*`), 'Arn'],
+          'Fn::GetAtt': [functionConstructIdCapture, 'Arn'],
         },
         Principal: 'alexa-appkit.amazon.com',
         Action: 'lambda:InvokeFunction',
-      }));
+      });
+
+      expect(functionConstructIdCapture.asString()).toEqual(expect.stringMatching(RegExp(`${DummyFunctionConstructId.replace('-', '')}*`)));
     });
   });
 
   describe('created with no Lambda endpoint', () => {
     beforeEach(() => {
       new as.Skill(stack, 'Skill', createTestSkillProps(stack, false, {}));
+      template = Template.fromStack(stack);
     });
 
     test('creates a Skill with no Overrides property', () => {
-      expectCdk(stack).to(haveResourceLike('Alexa::ASK::Skill', {
+      template.hasResourceProperties('Alexa::ASK::Skill', Match.objectLike({
         'VendorId': DummyAlexaDeveloperVendorId,
         'AuthenticationConfiguration': {
           'ClientId': DummyAlexaDeveloperClientId,
@@ -112,18 +124,18 @@ describe('Alexa Skill', () => {
           'RefreshToken': DummyAlexaDeveloperRefreshTokenString,
         },
         'SkillPackage': {
-          'Overrides': ABSENT,
+          'Overrides': Match.absent(),
         },
       }));
     });
 
     test('does not create Custom Resources', () => {
-      expectCdk(stack).to(not(haveResource('AWS::CloudFormation::CustomResource')));
-      expectCdk(stack).to(not(haveResource('Custom::AWS')));
+      template.resourceCountIs('AWS::CloudFormation::CustomResource', 0);
+      template.resourceCountIs('Custom::AWS', 0);
     });
 
     test('does not create a Lambda Permission', () => {
-      expectCdk(stack).notTo(haveResource('AWS::Lambda::Permission'));
+      template.resourceCountIs('AWS::Lambda::Permission', 0);
     });
   });
 
