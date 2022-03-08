@@ -150,6 +150,9 @@ export class Skill extends SkillBase {
     // Set resource skillId to Alexa Skill resource Skill ID.
     this.skillId = resource.ref;
 
+    // Explicit dependency to IAM Policy (which is part of the Role construct) to prevent race condition
+    resource.node.addDependency(askResourceRole);
+
     // This section is only necessary if a Lambda Function was supplied in the props.
     if (props.endpointLambdaFunction) {
       // Create placeholder Lambda Permission to allow Alexa Skill to pass endpoint validation.
